@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  // provider = "mysql"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  ADVISER
+}
+
+enum ComplaintStatus {
+  OPEN
+  IN_PROGRESS
+  CLOSED
+  REJECTED
+}
+
+model User {
+  id       Int      @id @default(autoincrement())
+  name     String
+  email    String   @unique @db.VarChar(100)
+  phone    String?  @db.VarChar(13)
+  password String   @db.VarChar(100)
+  role     UserRole
+  Applog   Applog[]
+}
+
+model Complaint {
+  id             Int              @id @default(autoincrement())
+  name           String
+  major          String
+  program        String
+  position       String
+  status         ComplaintStatus
+  reporter       String
+  description    String
+  contact        String
+  link           String?
+  Proof          Proof[]
+  Recommendation Recommendation[]
+}
+
+model Proof {
+  id          Int       @id @default(autoincrement())
+  link        String
+  ComplaintId Int
+  Complaint   Complaint @relation(fields: [ComplaintId], references: [id])
+  chronology  String?
+}
+
+model Recommendation {
+  id           Int       @id @default(autoincrement())
+  link         String
+  originalName String
+  ComplaintId  Int
+  Complaint    Complaint @relation(fields: [ComplaintId], references: [id])
+}
+
+model Rule {
+  id           Int    @id @default(autoincrement())
+  link         String
+  originalName String
+}
+
+model Applog {
+  id        Int      @id @default(autoincrement())
+  UserId    Int
+  User      User     @relation(fields: [UserId], references: [id])
+  message   String?
+  timestamp DateTime @default(now())
+}
