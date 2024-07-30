@@ -15,11 +15,10 @@ import TablePagination from "./TablePagination";
 import { ReactNode } from "react";
 import RowLoading from "./RowLoading";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#D6D4D4",
-    color: "#000000",
+    backgroundColor: theme.palette.grey[300],
+    color: theme.palette.text.primary,
     fontWeight: 600,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -41,6 +40,7 @@ export type DataTableColumnProps<T> = {
       | "center"
       | "justify"
       | "match-parent";
+    className?: string;
   };
 };
 
@@ -77,14 +77,16 @@ export default function DataTable<T>({
             <TableRow>
               {columns.map((cell) => (
                 <StyledTableCell
-                  key={cell.id}
-                  sx={{
-                    width: cell.headProps?.width,
-                    textAlign: cell.headProps?.align,
-                  }}
-                >
-                  {cell.label}
-                </StyledTableCell>
+                key={cell.id}
+                sx={{
+                  width: cell.headProps?.width,
+                  textAlign: cell.headProps?.align,
+                }}
+                className={cell.id === "action" ? "hide-column-on-print" : ""} // Terapkan kelas CSS
+              >
+                {cell.label}
+              </StyledTableCell>
+              
               ))}
             </TableRow>
           </TableHead>
@@ -93,7 +95,7 @@ export default function DataTable<T>({
               <TableRow>
                 <TableCell
                   variant="body"
-                  colSpan={columns.length + 1}
+                  colSpan={columns.length}
                   align="center"
                 >
                   <Box

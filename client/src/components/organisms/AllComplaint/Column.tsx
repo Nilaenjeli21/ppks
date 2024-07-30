@@ -20,7 +20,7 @@ export function column({
   const columns: DataTableColumnProps<Complaint>[] = [
     {
       id: "id",
-      label: "ID",
+      label: "Id",
       value: (data: Complaint) => `# ${data.id}`,
       headProps: {
         width: "50px",
@@ -86,6 +86,14 @@ export function column({
         return description.length > 150
           ? description.slice(0, 150) + "..."
           : description;
+      },
+    },
+    {
+      id: "reportDate",
+      label: "Laporan Masuk",
+      value: (data: Complaint) => {
+        const reportDate = data.reportDate;
+        return reportDate ? new Date(reportDate).toLocaleDateString() : "-";
       },
     },
     {

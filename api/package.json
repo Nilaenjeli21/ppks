@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "@date-io/date-fns": "^3.0.0",
+    "@mui/x-date-pickers": "^7.11.1",
     "@overnightjs/core": "^1.7.6",
     "@prisma/client": "^5.17.0",
     "argon2": "^0.40.1",
@@ -10,6 +12,7 @@
     "express-http-context": "^1.2.4",
     "express-jsdoc-swagger": "^1.8.0",
     "express-winston": "^4.2.0",
+    "html2pdf.js": "^0.10.2",
     "http-status-codes": "^2.3.0",
     "jsonwebtoken": "^9.0.2",
     "jwt": "^0.2.0",
@@ -19,6 +22,7 @@
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "prisma": "^5.17.0",
+    "react-to-print": "^2.15.1",
     "rotating-file-stream": "^3.2.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.3",

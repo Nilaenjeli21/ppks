@@ -36,6 +36,7 @@ export type SelectedComplaint = Pick<
   | "major"
   | "program"
   | "link"
+  | "reportDate"
 >;
 
 interface FormComplaintProps {
@@ -58,7 +59,9 @@ export default function FormComplaint({ form }: FormComplaintProps) {
     position?: string;
     description?: string;
     contact?: string;
+    reportDate?: string;
   }>({});
+  const [reportDate, setReportDate] = useState<string>('');
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -81,6 +84,7 @@ export default function FormComplaint({ form }: FormComplaintProps) {
       position?: string;
       description?: string;
       contact?: string;
+      reportDate?: string;
     } = {};
 
     if (!form.data.name) errors.name = 'Nama wajib diisi.';
@@ -90,6 +94,7 @@ export default function FormComplaint({ form }: FormComplaintProps) {
     if (!form.data.position) errors.position = 'Jabatan wajib diisi.';
     if (!form.data.description) errors.description = 'Kronologis kejadian wajib diisi.';
     if (!form.data.contact) errors.contact = 'Nomor Hp/Wa wajib diisi.';
+    if (!reportDate) errors.reportDate = 'Tanggal melapor wajib diisi.';
 
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
@@ -105,7 +110,7 @@ export default function FormComplaint({ form }: FormComplaintProps) {
     setIsCaptchaValid(true);
     setCaptchaError('');
     setFormErrors({});
-    form.submit(); 
+    form.submit();
   };
 
   const program = form.data.major === "Teknik Mesin"
@@ -270,6 +275,16 @@ export default function FormComplaint({ form }: FormComplaintProps) {
           fullWidth
           value={form.data.link}
           onChange={(e) => form.setData({ ...form.data, link: e.target.value })}
+        />
+        <FormLabel required>Tanggal Melapor ke Satgas</FormLabel>
+        <TextField
+          required
+          fullWidth
+          type="date"
+          value={reportDate}
+          onChange={(e) => setReportDate(e.target.value)}
+          error={!!formErrors.reportDate}
+          helperText={formErrors.reportDate}
         />
         <FormLabel>Captcha</FormLabel>
         <LoadCanvasTemplate />
