@@ -112,6 +112,7 @@ export function column({
                   fontSize: "0.75rem",
                   textTransform: "capitalize",
                   border: "none",
+                  width: "150px",
                 }}
               >
                 Kasus Valid
@@ -126,6 +127,7 @@ export function column({
                   fontSize: "0.75rem",
                   textTransform: "capitalize",
                   border: "none",
+                  width: "150px",
                 }}
               >
                 Kasus Tidak Valid

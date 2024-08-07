@@ -58,7 +58,7 @@ model Proof {
   link        String
   ComplaintId Int
   Complaint   Complaint @relation(fields: [ComplaintId], references: [id])
-  chronology  String?
+  Complaint Complaint NOT NULL  String?
 }
 
 model Recommendation {
