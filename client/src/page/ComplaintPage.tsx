@@ -18,6 +18,7 @@ const validationSchema = yup.object().shape({
   reporter: yup.string().required("Kolom ini wajib diisi"),
   description: yup.string().required("Kolom ini wajib diisi"),
   contact: yup.string().required("Kolom ini wajib diisi"),
+  reportDate: yup.date().required("Kolom ini wajib diisi"),
   link: yup
     .string()
     .test("url", "Format link tidak valid", (value) => !value || /^https?:\/\//.test(value))
@@ -37,6 +38,7 @@ export default function ComplaintPage() {
       reporter: "korban",
       description: "",
       contact: "",
+      reportDate: new Date(),
     },
   });
 

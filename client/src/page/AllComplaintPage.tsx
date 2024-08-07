@@ -322,7 +322,7 @@ export default function AllComplaintPage() {
                         {data.link && (
                           <TableRow>
                             <TableCell
-                              sx={{ width: "10%", padding: "4px 8px" }}
+                              sx={{ width: "10%", padding: "2px 4px" }}
                             >
                               <Typography variant="body2" fontWeight={600}>
                                 Link Bukti

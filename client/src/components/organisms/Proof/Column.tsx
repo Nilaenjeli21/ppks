@@ -4,15 +4,17 @@ import { ProofType } from "./TableProof";
 import { Box, Typography, Button, Stack } from "@mui/material";
 import { PRIMARY } from "@common/constant/Color";
 import { ComplaintStatus, Role } from "@common/constant/Enum";
+import ChronologyDialog from "@components/organisms/Proof/ChronologyDialog"; // Import komponen ChronologyDialog
 
-// Perbaiki fungsi untuk menggunakan peran dari argumen
+// Fungsi untuk mendefinisikan kolom tabel
 export function column(
   onUpdate: (data: ProofType) => void,
   onDelete: (id: number) => void,
-  user: { role: Role } // Tambahkan parameter user
+  user: { role: Role } // Parameter user untuk mengecek peran
 ): DataTableColumnProps<ProofType>[] {
-  const userRole = user.role; // Gunakan peran dari argumen user
+  const userRole = user.role; // Ambil peran pengguna dari parameter
 
+  // Definisikan kolom-kolom tabel
   const columns: DataTableColumnProps<ProofType>[] = [
     {
       id: "id",
@@ -81,11 +83,12 @@ export function column(
     {
       id: "chronology",
       label: "Kronologis",
-      value: (data) => (
-        <Typography>
-          {data.chronology}
-        </Typography>
-      ),
+      value: (data) => {
+        const text = data.chronology || "";
+        return (
+          <ChronologyDialog text={text} />
+        );
+      },
       headProps: {
         width: "600px",
       },

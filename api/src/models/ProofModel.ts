@@ -37,6 +37,20 @@ export const ProofModel = {
   },
 
   deleteProof: async (id: number): Promise<Proof> => {
-    return prisma.proof.delete({ where: { id } });
+    try {
+      // Check if the proof exists before attempting to delete
+      const proof = await prisma.proof.findUnique({ where: { id } });
+
+      if (!proof) {
+        console.warn(`Proof with ID ${id} does not exist.`);
+        return null; // or handle it in a way that fits your application's flow
+      }
+
+      // Delete the proof
+      return await prisma.proof.delete({ where: { id } });
+    } catch (error) {
+      console.error(`Failed to delete proof with ID ${id}: ${error.message}`);
+      throw error; // rethrow the error after logging it
+    }
   },
 };

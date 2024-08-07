@@ -11,6 +11,7 @@ export interface Complaint {
   description: string;
   contact: string;
   link?: string;
+  reportDate: Date;
   Recommendation?: {
     id: number;
     link: string;
