@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { Complaint } from "@common/types/Complaint";
 import {
   Autocomplete,
@@ -12,8 +12,12 @@ import {
   Button,
   FormHelperText,
 } from "@mui/material";
-import { LoadCanvasTemplate, loadCaptchaEnginge, validateCaptcha } from '@components/organisms/Complaint/CaptchaEngine';
-import { UseMutation } from 'frhooks';
+import {
+  LoadCanvasTemplate,
+  loadCaptchaEnginge,
+  validateCaptcha,
+} from "@components/organisms/Complaint/CaptchaEngine";
+import { UseMutation } from "frhooks";
 
 const major = [
   "Teknik Mesin",
@@ -48,9 +52,9 @@ interface FormComplaintProps {
 }
 
 export default function FormComplaint({ form }: FormComplaintProps) {
-  const [captchaInput, setCaptchaInput] = useState('');
+  const [captchaInput, setCaptchaInput] = useState("");
   const [isCaptchaValid, setIsCaptchaValid] = useState(true);
-  const [captchaError, setCaptchaError] = useState('');
+  const [captchaError, setCaptchaError] = useState("");
   const [formErrors, setFormErrors] = useState<{
     name?: string;
     major?: string;
@@ -61,7 +65,7 @@ export default function FormComplaint({ form }: FormComplaintProps) {
     contact?: string;
     reportDate?: string;
   }>({});
-  const [reportDate, setReportDate] = useState<string>('');
+  const [reportDate, setReportDate] = useState<string>("");
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -72,7 +76,7 @@ export default function FormComplaint({ form }: FormComplaintProps) {
     setCaptchaInput(userInput);
     const isValid = validateCaptcha(userInput, false);
     setIsCaptchaValid(isValid);
-    setCaptchaError(isValid ? '' : 'Captcha tidak valid, coba lagi.');
+    setCaptchaError(isValid ? "" : "Captcha tidak valid, coba lagi.");
   };
 
   const handleSubmit = () => {
@@ -87,14 +91,23 @@ export default function FormComplaint({ form }: FormComplaintProps) {
       reportDate?: string;
     } = {};
 
-    if (!form.data.name) errors.name = 'Nama wajib diisi.';
-    if (!form.data.major) errors.major = 'Jurusan wajib diisi.';
-    if (!form.data.program) errors.program = 'Prodi wajib diisi.';
-    if (!form.data.reporter) errors.reporter = 'Status Pelapor wajib diisi.';
-    if (!form.data.position) errors.position = 'Jabatan wajib diisi.';
-    if (!form.data.description) errors.description = 'Kronologis kejadian wajib diisi.';
-    if (!form.data.contact) errors.contact = 'Nomor Hp/Wa wajib diisi.';
-    if (!reportDate) errors.reportDate = 'Tanggal melapor wajib diisi.';
+    if (!form.data.name) {
+      errors.name = "Nama wajib diisi.";
+    } else if (form.data.name.length < 3) {
+      errors.name = "Nama minimal harus terdiri dari 3 karakter.";
+    }
+    if (!form.data.major) errors.major = "Jurusan wajib diisi.";
+    if (!form.data.program) errors.program = "Prodi wajib diisi.";
+    if (!form.data.reporter) errors.reporter = "Status Pelapor wajib diisi.";
+    if (!form.data.position) errors.position = "Jabatan wajib diisi.";
+    if (!form.data.description)
+      errors.description = "Kronologis kejadian wajib diisi.";
+    if (!form.data.contact) {
+      errors.contact = "Nomor Hp/Wa wajib diisi.";
+    } else if (form.data.contact.length < 9 || form.data.contact.length > 14) {
+      errors.contact = "Nomor Hp/Wa harus terdiri dari 9 hingga 14 digit.";
+    }
+    if (!reportDate) errors.reportDate = "Tanggal melapor wajib diisi.";
 
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
@@ -102,74 +115,75 @@ export default function FormComplaint({ form }: FormComplaintProps) {
     }
 
     if (!validateCaptcha(captchaInput)) {
-      setCaptchaError('Captcha salah, coba lagi.');
+      setCaptchaError("Captcha salah, coba lagi.");
       setIsCaptchaValid(false);
       return;
     }
 
     setIsCaptchaValid(true);
-    setCaptchaError('');
+    setCaptchaError("");
     setFormErrors({});
     form.submit();
   };
 
-  const program = form.data.major === "Teknik Mesin"
-    ? [
-        "Teknik Mesin (D3)",
-        "Teknik Alat Berat (D3)",
-        "Teknik Manufaktur (Sarjana Terapan / D4)",
-        "Rekayasa Perancangan Mekanik (Sarjana Terapan / D4)",
-      ]
-    : form.data.major === "Teknik Sipil"
-    ? [
-        "Teknik Sipil (D3)",
-        "Teknologi Sipil (D3) PSDKU Tanah Datar",
-        "Teknik Perancangan Irigasi dan Rawa (Sarjana Terapan / D4)",
-        "Perancangan Jalan dan Jembatan (Sarjana Terapan / D4)",
-        "Manajemen Rekayasa Kontruksi (Sarjana Terapan / D4)",
-        "Rekayasa Perawatan dan Restorasi Jembatan (Magister Terapan / S2)",
-      ]
-    : form.data.major === "Teknik Elektro"
-    ? [
-        "Instalasi dan Pemeliharaan Kabel Bertenaga Rendah ( D2 Jalur Cepat / Fast Track)",
-        "Teknik Listrik (D3)",
-        "Teknik Listrik (D3) PSDKU Pelalawan",
-        "Teknik Elekronika (D3)",
-        "Teknik Telekomunikasi (D3)",
-        "Teknik Telekomunika Industri (Sarjana Terapan / D4)",
-        "Teknik Telekomunikasi (Sarjana Terapan / D4)",
-        "Teknik Rekayasa Instalasi Listrik (Sarjana Terapan / D4)",
-      ]
-    : form.data.major === "Akutansi"
-    ? [
-        "Akutansi (D3)",
-        "Akutansi (D3) PSDKU Solok Selatan",
-        "Akutansi (Sarjana Terapan / D4)",
-        "Sistem Informasi Akutansi (Magister Terapan / S2)",
-      ]
-    : form.data.major === "Teknologi Informasi"
-    ? [
-        "Administrasi Jaringan Komputer ( D2 Jalur Cepat / Fast Track)",
-        "Teknik Komputer (D3)",
-        "Teknik Komputer (D3) PSDKU Solok Selatan",
-        "Manajemen Informatika (D3)",
-        "Manajemen Informatika (D3) PSDKU Pelalawan",
-        "Sistem Informasi (D3) PSDKU Tanah Datar",
-        "Teknologi Rekayasa Perangkat Lunak (Sarjana Terapan / D4)",
-        "Animasi (Sarjana Terapan / D4)",
-      ]
-    : form.data.major === "Administrasi Niaga"
-    ? [
-        "Administrasi Bisnis (D3)",
-        "Destinasi Parawisata (Sarjana Terapan / D4)",
-        "Usaha Perjalanan Wisata (Sarjana Terapan / D4)",
-        "Bisnis Digital (Sarjana Terapan / D4)",
-        "Logistik Perdaganan Internasional (Sarjana Terapan / D4)",
-      ]
-    : [
-        "Bahasa Inggris (D3)",
-        "Bahasa Inggris Untuk Komunikasi Bisnis dan Profesional (Sarjana Terapan / D4)",
-      ];
+  const program =
+    form.data.major === "Teknik Mesin"
+      ? [
+          "Teknik Mesin (D3)",
+          "Teknik Alat Berat (D3)",
+          "Teknik Manufaktur (Sarjana Terapan / D4)",
+          "Rekayasa Perancangan Mekanik (Sarjana Terapan / D4)",
+        ]
+      : form.data.major === "Teknik Sipil"
+      ? [
+          "Teknik Sipil (D3)",
+          "Teknologi Sipil (D3) PSDKU Tanah Datar",
+          "Teknik Perancangan Irigasi dan Rawa (Sarjana Terapan / D4)",
+          "Perancangan Jalan dan Jembatan (Sarjana Terapan / D4)",
+          "Manajemen Rekayasa Kontruksi (Sarjana Terapan / D4)",
+          "Rekayasa Perawatan dan Restorasi Jembatan (Magister Terapan / S2)",
+        ]
+      : form.data.major === "Teknik Elektro"
+      ? [
+          "Instalasi dan Pemeliharaan Kabel Bertenaga Rendah ( D2 Jalur Cepat / Fast Track)",
+          "Teknik Listrik (D3)",
+          "Teknik Listrik (D3) PSDKU Pelalawan",
+          "Teknik Elekronika (D3)",
+          "Teknik Telekomunikasi (D3)",
+          "Teknik Telekomunika Industri (Sarjana Terapan / D4)",
+          "Teknik Telekomunikasi (Sarjana Terapan / D4)",
+          "Teknik Rekayasa Instalasi Listrik (Sarjana Terapan / D4)",
+        ]
+      : form.data.major === "Akutansi"
+      ? [
+          "Akutansi (D3)",
+          "Akutansi (D3) PSDKU Solok Selatan",
+          "Akutansi (Sarjana Terapan / D4)",
+          "Sistem Informasi Akutansi (Magister Terapan / S2)",
+        ]
+      : form.data.major === "Teknologi Informasi"
+      ? [
+          "Administrasi Jaringan Komputer ( D2 Jalur Cepat / Fast Track)",
+          "Teknik Komputer (D3)",
+          "Teknik Komputer (D3) PSDKU Solok Selatan",
+          "Manajemen Informatika (D3)",
+          "Manajemen Informatika (D3) PSDKU Pelalawan",
+          "Sistem Informasi (D3) PSDKU Tanah Datar",
+          "Teknologi Rekayasa Perangkat Lunak (Sarjana Terapan / D4)",
+          "Animasi (Sarjana Terapan / D4)",
+        ]
+      : form.data.major === "Administrasi Niaga"
+      ? [
+          "Administrasi Bisnis (D3)",
+          "Destinasi Parawisata (Sarjana Terapan / D4)",
+          "Usaha Perjalanan Wisata (Sarjana Terapan / D4)",
+          "Bisnis Digital (Sarjana Terapan / D4)",
+          "Logistik Perdaganan Internasional (Sarjana Terapan / D4)",
+        ]
+      : [
+          "Bahasa Inggris (D3)",
+          "Bahasa Inggris Untuk Komunikasi Bisnis dan Profesional (Sarjana Terapan / D4)",
+        ];
 
   return (
     <>
@@ -208,7 +222,9 @@ export default function FormComplaint({ form }: FormComplaintProps) {
           options={program || []}
           fullWidth
           value={form.data.program}
-          onChange={(e, value) => form.setData({ ...form.data, program: value || "" })}
+          onChange={(e, value) =>
+            form.setData({ ...form.data, program: value || "" })
+          }
           renderInput={(params) => (
             <TextField
               {...params}
@@ -222,9 +238,15 @@ export default function FormComplaint({ form }: FormComplaintProps) {
           <RadioGroup
             value={form.data.reporter}
             name="reporterStatus"
-            onChange={(e) => form.setData({ ...form.data, reporter: e.target.value })}
+            onChange={(e) =>
+              form.setData({ ...form.data, reporter: e.target.value })
+            }
           >
-            <FormControlLabel value="korban" control={<Radio />} label="Korban" />
+            <FormControlLabel
+              value="korban"
+              control={<Radio />}
+              label="Korban"
+            />
             <FormControlLabel value="saksi" control={<Radio />} label="Saksi" />
           </RadioGroup>
           <FormHelperText error={!!formErrors.reporter}>
@@ -236,20 +258,39 @@ export default function FormComplaint({ form }: FormComplaintProps) {
           <RadioGroup
             value={form.data.position}
             name="position"
-            onChange={(e) => form.setData({ ...form.data, position: e.target.value })}
+            onChange={(e) =>
+              form.setData({ ...form.data, position: e.target.value })
+            }
           >
-            <FormControlLabel value="mahasiswa" control={<Radio />} label="Mahasiswa" />
+            <FormControlLabel
+              value="mahasiswa"
+              control={<Radio />}
+              label="Mahasiswa"
+            />
             <FormControlLabel value="dosen" control={<Radio />} label="Dosen" />
-            <FormControlLabel value="tenaga pendidik" control={<Radio />} label="Tenaga Pendidik" />
-            <FormControlLabel value="alumni" control={<Radio />} label="Alumni" />
-            <FormControlLabel value="lainya" control={<Radio />} label="Lainya" />
+            <FormControlLabel
+              value="tenaga pendidik"
+              control={<Radio />}
+              label="Tenaga Pendidik"
+            />
+            <FormControlLabel
+              value="alumni"
+              control={<Radio />}
+              label="Alumni"
+            />
+            <FormControlLabel
+              value="lainya"
+              control={<Radio />}
+              label="Lainya"
+            />
           </RadioGroup>
           <FormHelperText error={!!formErrors.position}>
             {formErrors.position}
           </FormHelperText>
         </Box>
         <FormLabel required>
-          Kronologis Singkat Kejadian Kekerasan Seksual yang Anda alami atau Anda ketahui
+          Kronologis Singkat Kejadian Kekerasan Seksual yang Anda alami atau
+          Anda ketahui
         </FormLabel>
         <TextField
           required
@@ -257,7 +298,9 @@ export default function FormComplaint({ form }: FormComplaintProps) {
           rows={4}
           multiline
           value={form.data.description}
-          onChange={(e) => form.setData({ ...form.data, description: e.target.value })}
+          onChange={(e) =>
+            form.setData({ ...form.data, description: e.target.value })
+          }
           error={!!formErrors.description}
           helperText={formErrors.description}
         />
@@ -266,7 +309,9 @@ export default function FormComplaint({ form }: FormComplaintProps) {
           required
           fullWidth
           value={form.data.contact}
-          onChange={(e) => form.setData({ ...form.data, contact: e.target.value })}
+          onChange={(e) =>
+            form.setData({ ...form.data, contact: e.target.value })
+          }
           error={!!formErrors.contact}
           helperText={formErrors.contact}
         />
@@ -296,11 +341,7 @@ export default function FormComplaint({ form }: FormComplaintProps) {
           error={!isCaptchaValid}
           helperText={captchaError}
         />
-        <Button
-          fullWidth
-          variant="contained"
-          onClick={handleSubmit}
-        >
+        <Button fullWidth variant="contained" onClick={handleSubmit}>
           Kirim
         </Button>
       </Stack>
