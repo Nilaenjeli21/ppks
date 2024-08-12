@@ -1,4 +1,14 @@
 # **PPKS PROJECT**
+
+login admin
+email   : admin@mail.com
+password : P@ssw0rd
+
+pimpinan login : pimpinan@mail.com
+password : P@ssw0rd
+
+##Install
+
 **Please use yarn, instead of npm**\
 **Please install prettier extension for auto formatting**
 
