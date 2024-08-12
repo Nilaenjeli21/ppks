@@ -20,6 +20,7 @@ password : P@ssw0rd
 
 ## Connection ke postgreSQL
 Buka .env lalu ubah sesuai dengan databasemu yang ingin dipakai 
+database url= postgreSQL
 host=localhost
 port=54320 
 dbname=ppks 
@@ -34,6 +35,10 @@ npx prisma generate
 npx prisma migrate dev
 ambil datanya dari database ke sistem dengan perintah
 yarn seed
+
+## Jalankan Website
+cd api, yarn watch
+cd client, yarn dev
 
 ## Commands
 Init Project
