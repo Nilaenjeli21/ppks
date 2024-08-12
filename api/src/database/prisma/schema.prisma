@@ -44,11 +44,11 @@ model Complaint {
   program        String           @db.VarChar(100)
   position       String           @db.VarChar(50)
   status         ComplaintStatus
-  reporter       Text
-  description    Text
+  reporter       String
+  description    String
   contact        String           @db.VarChar(14)
-  link           Text?
-  reportDate     timestamp @default(now())
+  link           String?
+  reportDate     DateTime @default(now())
   Proof          Proof[]
   Recommendation Recommendation[]
 }
@@ -58,7 +58,6 @@ model Proof {
   link        String
   ComplaintId Int
   Complaint   Complaint @relation(fields: [ComplaintId], references: [id])
-  Complaint Complaint NOT NULL  String?
 }
 
 model Recommendation {
