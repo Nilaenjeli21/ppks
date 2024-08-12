@@ -58,6 +58,7 @@ model Proof {
   link        String
   ComplaintId Int
   Complaint   Complaint @relation(fields: [ComplaintId], references: [id])
+  chronology  String?
 }
 
 model Recommendation {
