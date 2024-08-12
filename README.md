@@ -19,17 +19,15 @@ password : P@ssw0rd
 3. buat .env folder api dan client copikan isi yang ada di .env example baik di folder api maupun client
 
 ## Connection ke postgreSQL
-
-**Please use yarn, instead of npm**\
-**Please install prettier extension for auto formatting**
-
-# Nodejs / Expressjs API
 Buka .env lalu ubah sesuai dengan databasemu yang ingin dipakai 
 host=localhost
 port=54320 
 dbname=ppks 
 user=ppks 
 password=
+
+**Please use yarn, instead of npm**\
+**Please install prettier extension for auto formatting**
 
 ##Instalasi Website
 npx prisma generate
