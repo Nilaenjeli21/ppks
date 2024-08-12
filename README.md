@@ -4,6 +4,7 @@ login admin
 email   : admin@mail.com
 password : P@ssw0rd
 
+login pimpinan
 pimpinan login : pimpinan@mail.com
 password : P@ssw0rd
 
