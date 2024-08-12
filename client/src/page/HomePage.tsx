@@ -32,7 +32,7 @@ export default function HomePage() {
             style={{ width: "100%", height: "auto", objectFit: "cover" }}
           />
           <a
-            href="https://wa.me/6281374488435" 
+            href="https://wa.me/6285182056839" 
             style={{ position: 'absolute', bottom: '10px', right: '10px' }}
             target="_blank"
             rel="noopener noreferrer"
