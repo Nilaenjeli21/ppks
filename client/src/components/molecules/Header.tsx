@@ -40,8 +40,9 @@ export default function Header() {
     { label: 'Seluruh Pengaduan', path: '/all-complaint' },
     { label: 'Bukti', path: '/proof' },
     { label: 'Rekomendasi', path: '/recommendation' },
-    { label: 'AppLog', path: '/applog' },
+    ...(userRole === Role.ADMIN ? [{ label: 'AppLog', path: '/applog' }] : []), // Hanya tampilkan 'AppLog' untuk ADMIN
   ];
+  
 
   const form = useMutation<UserLogin>({
     defaultValue: {
