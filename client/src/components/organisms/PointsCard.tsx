@@ -22,7 +22,7 @@ export default function PointsCard({ points }: { points: UseFetch<poinType> }) {
     },
     {
       point: closed || 0,
-      title: "Kasus Selesai",
+      title: "Selesai",
     },
   ];
 

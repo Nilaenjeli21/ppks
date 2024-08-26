@@ -4,8 +4,14 @@ import { UserModel } from '../models/UserModel';
 import DuplicateError from '../common/errors/DuplicateError';
 import argon2 from 'argon2';
 import InvalidPasswordError from '../common/errors/InvalidPasswordError';
+import { UserParamsQuery } from '../common/constants/paramsQuery';
+
 
 export const UserService = {
+  getAllUsers: async (params: UserParamsQuery): Promise<{ rows: User[]; count: number }> => {
+    const { rows, count } = await UserModel.getAll(params);
+    return { rows, count };
+  },
   hashPassword: async (password: string): Promise<string> => {
     return await argon2.hash(password);
   },

@@ -41,6 +41,10 @@ export type SelectedComplaint = Pick<
   | "program"
   | "link"
   | "reportDate"
+  | "email"
+  | "perpetrator"
+  | "incidentDate"
+  | "incidentLocation"
 >;
 
 interface FormComplaintProps {
@@ -64,8 +68,13 @@ export default function FormComplaint({ form }: FormComplaintProps) {
     description?: string;
     contact?: string;
     reportDate?: string;
+    email?: string;
+    perpetrator?: string;
+    incidentDate?: string;
+    incidentLocation?: string;
   }>({});
   const [reportDate, setReportDate] = useState<string>("");
+  const [incidentDate, setIncidentDate] = useState<string>("");
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -89,6 +98,10 @@ export default function FormComplaint({ form }: FormComplaintProps) {
       description?: string;
       contact?: string;
       reportDate?: string;
+      email?: string;
+      perpetrator?: string;
+      incidentDate?: string;
+      incidentLocation?: string;
     } = {};
 
     if (!form.data.name) {
@@ -108,6 +121,10 @@ export default function FormComplaint({ form }: FormComplaintProps) {
       errors.contact = "Nomor Hp/Wa harus terdiri dari 9 hingga 14 digit.";
     }
     if (!reportDate) errors.reportDate = "Tanggal melapor wajib diisi.";
+    if (!form.data.email) errors.email = "Email wajib diisi.";
+    if (!form.data.perpetrator) errors.perpetrator = "Nama pelaku/alias wajib diisi.";
+    if (!incidentDate) errors.incidentDate = "Tanggal kejadian wajib diisi.";
+    if (!form.data.incidentLocation) errors.incidentLocation = "Tempat kejadian wajib diisi.";
 
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
@@ -232,6 +249,43 @@ export default function FormComplaint({ form }: FormComplaintProps) {
               helperText={formErrors.program}
             />
           )}
+        />
+        <FormLabel required>Email</FormLabel>
+        <TextField
+          required
+          fullWidth
+          value={form.data.email}
+          onChange={(e) => form.setData({ ...form.data, email: e.target.value })}
+          error={!!formErrors.email}
+          helperText={formErrors.email}
+        />
+        <FormLabel required>Nama Pelaku/Alias</FormLabel>
+        <TextField
+          required
+          fullWidth
+          value={form.data.perpetrator}
+          onChange={(e) => form.setData({ ...form.data, perpetrator: e.target.value })}
+          error={!!formErrors.perpetrator}
+          helperText={formErrors.perpetrator}
+        />
+        <FormLabel required>Tanggal Kejadian</FormLabel>
+        <TextField
+          required
+          fullWidth
+          type="date"
+          value={incidentDate}
+          onChange={(e) => setIncidentDate(e.target.value)}
+          error={!!formErrors.incidentDate}
+          helperText={formErrors.incidentDate}
+        />
+        <FormLabel required>Tempat Kejadian</FormLabel>
+        <TextField
+          required
+          fullWidth
+          value={form.data.incidentLocation}
+          onChange={(e) => form.setData({ ...form.data, incidentLocation: e.target.value })}
+          error={!!formErrors.incidentLocation}
+          helperText={formErrors.incidentLocation}
         />
         <Box>
           <FormLabel required>Status Pelapor</FormLabel>

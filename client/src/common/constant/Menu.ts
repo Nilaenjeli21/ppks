@@ -28,5 +28,6 @@ export default function Menu(): Link[] {
       path: "/rules",
       canAccess: [Role.ADMIN, Role.USER, Role.ADVISER],
     },
+   
   ];
 }

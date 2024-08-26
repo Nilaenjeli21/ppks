@@ -7,7 +7,7 @@ import { ProofModel } from '../models/ProofModel';
 export const ComplaintService = {
   createComplaint: async (data: Complaint): Promise<Complaint> => {
     try {
-      const { name, major, program, position, description, contact, reporter, link, reportDate } = data;
+      const { name, major, program, position, description, contact, reporter, link, reportDate, email, perpetrator, incidentDate, incidentLocation } = data;
 
       return await ComplaintModel.createComplaint({
         name,
@@ -20,6 +20,10 @@ export const ComplaintService = {
         reporter,
         link,
         reportDate,
+        email,
+        perpetrator,
+        incidentDate,
+        incidentLocation,
       });
     } catch (e) {
       throw e;

@@ -23,7 +23,7 @@ import { User } from '@prisma/client';
 export class ComplaintController {
   @Post('')
   @Middleware([
-    validate(['name', 'major', 'program', 'position', 'reporter', 'description', 'contact', 'reportDate']),
+    validate(['name', 'major', 'program', 'position', 'reporter', 'description', 'contact', 'reportDate', 'email', 'perpetrator', 'incidentDate', 'incidentLocation']),
   ])
   private async createComplaint(req: Request, res: Response, next: NextFunction) {
     try {

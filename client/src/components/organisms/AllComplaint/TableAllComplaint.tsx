@@ -69,8 +69,8 @@ export default function TableAllComplaint({
               status &&
               {
                 [ComplaintStatus.OPEN]: "Masuk",
-                [ComplaintStatus.CLOSED]: "Selesai",
-                [ComplaintStatus.IN_PROGRESS]: "Diproses",
+                [ComplaintStatus.CLOSED]: "Rekomendasi Selesai",
+                [ComplaintStatus.IN_PROGRESS]: "Proses Investigasi",
                 [ComplaintStatus.REJECTED]: "Ditolak",
               }[status]
             }
@@ -87,8 +87,8 @@ export default function TableAllComplaint({
                   {option &&
                     {
                       [ComplaintStatus.OPEN]: "Masuk",
-                      [ComplaintStatus.CLOSED]: "Selesai",
-                      [ComplaintStatus.IN_PROGRESS]: "Diproses",
+                      [ComplaintStatus.CLOSED]: "Rekomendasi Selesai",
+                      [ComplaintStatus.IN_PROGRESS]: "Proses Investigasi",
                       [ComplaintStatus.REJECTED]: "Ditolak",
                     }[option]}
                 </Typography>

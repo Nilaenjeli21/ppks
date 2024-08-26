@@ -12,6 +12,10 @@ export interface Complaint {
   contact: string;
   link?: string;
   reportDate: Date;
+  email?: string;
+  perpetrator?: string;
+  incidentDate: Date;
+  incidentLocation?: string;
   Recommendation?: {
     id: number;
     link: string;

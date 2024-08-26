@@ -7,6 +7,7 @@ import AllComplaintPage from "./page/AllComplaintPage";
 import ProofPage from "./page/ProofPage";
 import RecommendationPage from "./page/RecommendationPage";
 import ApplogPage from "./page/ApplogPage";
+import UserPage from "./page/UserPage";
 import AdminAuth from "@components/layouts/AdminAuth";
 
 const router: RouteObject[] = [
@@ -41,6 +42,10 @@ const router: RouteObject[] = [
   {
     element: <AdminAuth page={<ApplogPage />} />,
     path: "/applog",
+  },
+  {
+    element: <AdminAuth page={<UserPage />} />,
+    path: "/user",
   },
 ];
 

@@ -48,6 +48,10 @@ model Complaint {
   description    String
   contact        String           @db.VarChar(14)
   link           String?
+  email          String?
+  perpetrator    String?
+  incidentDate   DateTime @default(now())
+  incidentLocation String?
   reportDate     DateTime @default(now())
   Proof          Proof[]
   Recommendation Recommendation[]

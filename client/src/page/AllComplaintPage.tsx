@@ -8,6 +8,8 @@ import CustomDialog from "@components/organisms/CustomDialog";
 import PointsCard, { poinType } from "@components/organisms/PointsCard";
 import { ProofType } from "@components/organisms/Proof/TableProof";
 import MainTemplate from "@components/templates/MainTemplate";
+import { format } from 'date-fns';
+import { id } from 'date-fns/locale';
 import {
   Box,
   Button,
@@ -61,6 +63,13 @@ const getAllComplaints = async (event: EventTable) => {
   });
 
   return data;
+};
+const formatDate = (date: Date | string) => {
+  if (date instanceof Date) {
+    return format(date, 'd MMMM yyyy', { locale: id });
+  } else {
+    return format(new Date(date), 'd MMMM yyyy', { locale: id });
+  }
 };
 
 const getComplaints = async (event: EventTable) => {
@@ -281,72 +290,69 @@ export default function AllComplaintPage() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {data && (
-                      <>
-                        {[
-                          { label: "Nama", value: data.name },
-                          { label: "Jurusan", value: data.major },
-                          { label: "Prodi", value: data.program },
-                          { label: "Jabatan", value: data.position },
-                          { label: "Status Pelapor", value: data.reporter },
-                          { label: "Kronologis", value: data.description },
-                          { label: "No. Hp/ Wa", value: data.contact },
-                        ].map(({ label, value }) => (
-                          <TableRow key={label}>
-                            <TableCell
-                              sx={{ width: "20%", padding: "1px 2px" }}
-                            >
-                              <Typography variant="body2" fontWeight={600}>
-                                {label}
-                              </Typography>
-                            </TableCell>
-                            <TableCell sx={{ width: "1%", padding: "4px 8px" }}>
-                              <Typography variant="body2" fontWeight={600}>
-                                :
-                              </Typography>
-                            </TableCell>
-                            <TableCell sx={{ padding: "4px 8px" }}>
-                              {label === "Kronologis" ? (
-                                <Typography
-                                  variant="body2"
-                                  sx={{ textAlign: "justify" }}
-                                >
-                                  {value}
-                                </Typography>
-                              ) : (
-                                <Typography variant="body2">{value}</Typography>
-                              )}
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                        {data.link && (
-                          <TableRow>
-                            <TableCell
-                              sx={{ width: "10%", padding: "2px 4px" }}
-                            >
-                              <Typography variant="body2" fontWeight={600}>
-                                Link Bukti
-                              </Typography>
-                            </TableCell>
-                            <TableCell sx={{ width: "1%", padding: "4px 8px" }}>
-                              <Typography variant="body2" fontWeight={600}>
-                                :
-                              </Typography>
-                            </TableCell>
-                            <TableCell sx={{ padding: "4px 8px" }}>
-                              <Typography
-                                variant="body2"
-                                sx={{ color: "blue", cursor: "pointer" }}
-                                onClick={() => window.open(data.link)}
-                              >
-                                {data.link}
-                              </Typography>
-                            </TableCell>
-                          </TableRow>
-                        )}
-                      </>
-                    )}
-                  </TableBody>
+  {data && (
+    <>
+      {[
+        { label: "Nama", value: data.name },
+        { label: "Jurusan", value: data.major },
+        { label: "Prodi", value: data.program },
+        { label: "Jabatan", value: data.position },
+        { label: "Status Pelapor", value: data.reporter },
+        { label: "Email", value: data.email },
+        { label: "Nama Pelaku", value: data.perpetrator },
+        { label: "Lokasi Kejadian", value: data.incidentLocation },
+        { label: "Waktu Kejadian", value: formatDate(data.incidentDate) }, 
+        { label: "Tanggal Melapor", value: formatDate(data.reportDate) }, 
+        { label: "Kronologis", value: data.description },
+        { label: "No. Hp/ Wa", value: data.contact },
+      ].map(({ label, value }) => (
+        <TableRow key={label}>
+          <TableCell sx={{ width: "20%", padding: "1px 2px" }}>
+            <Typography variant="body2" fontWeight={600}>
+              {label}
+            </Typography>
+          </TableCell>
+          <TableCell sx={{ width: "1%", padding: "4px 8px" }}>
+            <Typography variant="body2" fontWeight={600}>
+              :
+            </Typography>
+          </TableCell>
+          <TableCell sx={{ padding: "4px 8px" }}>
+            <Typography variant="body2">
+              {typeof value === "string"
+                ? value
+                : "N/A"}
+            </Typography>
+          </TableCell>
+        </TableRow>
+      ))}
+      {data.link && (
+        <TableRow>
+          <TableCell sx={{ width: "10%", padding: "2px 4px" }}>
+            <Typography variant="body2" fontWeight={600}>
+              Link Bukti
+            </Typography>
+          </TableCell>
+          <TableCell sx={{ width: "1%", padding: "4px 8px" }}>
+            <Typography variant="body2" fontWeight={600}>
+              :
+            </Typography>
+          </TableCell>
+          <TableCell sx={{ padding: "4px 8px" }}>
+            <Typography
+              variant="body2"
+              sx={{ color: "blue", cursor: "pointer" }}
+              onClick={() => window.open(data.link)}
+            >
+              {data.link}
+            </Typography>
+          </TableCell>
+        </TableRow>
+      )}
+    </>
+  )}
+</TableBody>
+
                 </Table>
               </TableContainer>
               {data?.status === ComplaintStatus.OPEN && (

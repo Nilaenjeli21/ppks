@@ -17,6 +17,7 @@ const userData: Prisma.UserCreateInput[] = [
     password: 'P@ssw0rd',
     role: UserRole.ADVISER,
   },
+  
 ];
 
 async function main() {

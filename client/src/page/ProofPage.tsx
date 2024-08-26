@@ -189,7 +189,7 @@ export default function ProofPage() {
               />
             )}
           />
-          <FormLabel required>Kronologis</FormLabel>
+          <FormLabel required>Keterangan</FormLabel>
           <TextField
             id="chronology"
             name="kronologis"

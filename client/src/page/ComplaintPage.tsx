@@ -19,6 +19,10 @@ const validationSchema = yup.object().shape({
   description: yup.string().required("Kolom ini wajib diisi"),
   contact: yup.string().required("Kolom ini wajib diisi"),
   reportDate: yup.date().required("Kolom ini wajib diisi"),
+  email: yup.string().email("Format email tidak valid").optional(),
+  incidentDate: yup.date().required("Kolom ini wajib diisi"),
+  incidentLocation: yup.string().required("Kolom ini wajib diisi"),
+  perpetrator: yup.string().required("Kolom ini wajib diisi"),
   link: yup
     .string()
     .test("url", "Format link tidak valid", (value) => !value || /^https?:\/\//.test(value))
@@ -38,6 +42,10 @@ export default function ComplaintPage() {
       reporter: "korban",
       description: "",
       contact: "",
+      email: "",
+      incidentDate: new Date(),
+      incidentLocation: "",
+      perpetrator: "",
       reportDate: new Date(),
     },
   });

@@ -1,5 +1,6 @@
 const apiRoute = {
   users: {
+    index: "/users",
     login: "/users/login",
     register: "/users/register",
     current: "/users/current",
@@ -24,6 +25,9 @@ const apiRoute = {
   },
   applog: {
     index: "/applogs",
+  },
+  user: {
+    index: "/user",
   },
   rule: {
     index: "/rules",

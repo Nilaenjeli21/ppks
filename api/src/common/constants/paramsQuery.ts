@@ -17,3 +17,4 @@ export interface ProofParamsQuery extends paramsQuery {}
 export interface RecommendationParamsQuery extends paramsQuery {}
 export interface ApplogParamsQuery extends paramsQuery {}
 export interface RuleParamsQuery extends paramsQuery {}
+export interface UserParamsQuery extends paramsQuery {}

@@ -72,6 +72,17 @@ export class UserController {
       return next(err);
     }
   }
+  @Get('')
+  private async getAllUsers(req: Request, res: Response, next: NextFunction) {
+    try {
+      const users = await UserService.getAllUsers(req.query);
+      return res.status(OK).json(users);
+    } catch (err) {
+      logger.error(err);
+      return next(err);
+    }
+  }
+  
 
   @Put(':id/password')
   @Middleware([validate(['password', 'currentPassword'])])

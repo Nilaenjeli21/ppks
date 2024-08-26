@@ -29,7 +29,7 @@ export default function TableRecommendation({
   return (
     <Stack gap={3}>
       <Typography variant="h5" fontWeight={600}>
-        Rekomendasi SatgasPPKS PNP Kepada Pimpinan
+        Rekomendasi Satgas PPKS PNP Kepada Pimpinan
       </Typography>
       <DataTable
         columns={column({ onAccept, onReject, user })}

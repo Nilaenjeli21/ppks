@@ -58,15 +58,15 @@ export function column({
             p: 1,
             borderRadius: "5px",
             textAlign: "center",
-            width: "60px",
+            width: "90px",
             color: "white",
           }}
         >
           {
             {
               [ComplaintStatus.OPEN]: "Masuk",
-              [ComplaintStatus.CLOSED]: "Selesai",
-              [ComplaintStatus.IN_PROGRESS]: "Diproses",
+              [ComplaintStatus.CLOSED]: "Rekomendasi Selesai",
+              [ComplaintStatus.IN_PROGRESS]: "Proses Investigasi",
               [ComplaintStatus.REJECTED]: "Ditolak",
             }[data.status]
           }

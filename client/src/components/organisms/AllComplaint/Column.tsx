@@ -59,7 +59,7 @@ export function column({
             textAlign: "center",
             width: {
               xs: "auto", // full width on small screens
-              sm: "60px", // 60px on medium and larger screens
+              sm: "90px", // 60px on medium and larger screens
             },
             color: "white",
           }}
@@ -67,8 +67,8 @@ export function column({
           {
             {
               [ComplaintStatus.OPEN]: "Masuk",
-              [ComplaintStatus.CLOSED]: "Selesai",
-              [ComplaintStatus.IN_PROGRESS]: "Diproses",
+              [ComplaintStatus.CLOSED]: "Rekomendasi Selesai",
+              [ComplaintStatus.IN_PROGRESS]: "Proses Investigasi",
               [ComplaintStatus.REJECTED]: "Ditolak",
             }[data.status]
           }
